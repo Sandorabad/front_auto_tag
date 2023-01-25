@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
-import pandas as pd
+import requests
+
 
 # Configuraciones Iniciales de la pagina
 st.set_page_config(layout="wide", page_title="AUTO-TAG")
@@ -93,4 +94,16 @@ def get_image_characteristics():
     print(images_names_and_pil)
     return images_names_and_pil
 
-get_image_characteristics()
+
+def get_prediction(input_data):
+    response = requests.post("https://your-model-endpoint.com/predict", json=input_data)
+    return response.json()
+
+def main():
+    #input_data = {"input": "some input"}
+    #rediction = get_prediction(input_data)
+    #st.write("Prediction:", prediction)
+
+if __name__ == '__main__':
+    main()
+    get_image_characteristics()
