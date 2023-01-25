@@ -69,19 +69,22 @@ images = st.file_uploader(type=["jpg"], label= "Arrastra o Selecciona tus Imagen
 
 # Este script permite obtener las caracteristicas de las imagenes.
 def get_image_characteristics():
+    """Definimos un diccionario que toma Y retorna los nombres de cada archivo y el objeto PIL de la fotografia"""
+    images_names_and_pil = {}
+
     for image_file in images:
-        if image is not None:
-            image = Image.open(image_file)
-
-            # obten las caracteristicas de la imagen
-            caracteristicas = model.predict(image)
-
-            # convert characteristics to dataframe
-            df = pd.DataFrame(caracteristicas)
+        if image_file is not None:
+            #image = Image.open(image_file) esto es para trabajar con objetos pillow
+            image = image_file #esto se encuentra en el objeto de uploded file
+            images_names_and_pil[image_file.name] = image
 
             # download as excel file
-            st.write("Descargar características como archivo excel")
-            df.to_excel("Clasificacion_imagenes.xlsx")
-            st.success("Descarga Completa.")
+            #st.write("Descargar características como archivo excel")
+            #df.to_excel("Clasificacion_imagenes.xlsx")
+            #st.success("Descarga Completa.")
+
+    print("______________________________________")
+    print(images_names_and_pil)
+    return images_names_and_pil
 
 get_image_characteristics()
