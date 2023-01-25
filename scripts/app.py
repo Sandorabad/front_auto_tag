@@ -67,6 +67,14 @@ st.markdown(hide_label, unsafe_allow_html=True)
 # Seccion destinada a la carga de las imagenes
 images = st.file_uploader(type=["jpg"], label= "Arrastra o Selecciona tus Imagenes", label_visibility = "hidden", accept_multiple_files=True)
 
+if images:
+    for file in images:
+        st.image(file, caption="Imagen cargada", use_column_width=True)
+    st.success("Que lindo!")
+else:
+    st.info("Po favor al menos sube una imagen.")
+
+
 # Este script permite obtener las caracteristicas de las imagenes.
 def get_image_characteristics():
     """Definimos un diccionario que toma Y retorna los nombres de cada archivo y el objeto PIL de la fotografia"""
@@ -82,8 +90,6 @@ def get_image_characteristics():
             #st.write("Descargar características como archivo excel")
             #df.to_excel("Clasificacion_imagenes.xlsx")
             #st.success("Descarga Completa.")
-
-    print("______________________________________")
     print(images_names_and_pil)
     return images_names_and_pil
 
