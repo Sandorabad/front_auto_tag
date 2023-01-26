@@ -100,6 +100,7 @@ def get_prediction(input_data):
     return response.json()
 
 def main():
+    print("a")
     #input_data = {"input": "some input"}
     #rediction = get_prediction(input_data)
     #st.write("Prediction:", prediction)
