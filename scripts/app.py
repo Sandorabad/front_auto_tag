@@ -2,7 +2,6 @@ import streamlit as st
 import requests
 from PIL import Image
 import pandas as pd
-from tensorflow.keras.models import load_model
 import io
 
 
