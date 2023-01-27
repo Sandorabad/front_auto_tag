@@ -7,7 +7,7 @@ import io
 st.set_page_config(page_title="Retail Auto Tagging", page_icon=":guardsman:", layout="wide")
 
 
-logo_path = "/home/sandorabad/code/Sandorabad/front_auto_tag/scripts/Logotipo de Internet Blanco con Triángulos de Colores.png"
+logo_path = "scripts/Logotipo de Internet Blanco con Triángulos de Colores.png"
 st.image(logo_path, width=200)
 
 
