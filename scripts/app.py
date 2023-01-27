@@ -3,6 +3,8 @@ import requests
 from PIL import Image
 import pandas as pd
 from tensorflow.keras.models import load_model
+import io
+
 
 #page_config
 st.set_page_config(page_title="Image Prediction App", page_icon=":guardsman:", layout="wide")
