@@ -10,8 +10,11 @@ import io
 st.set_page_config(page_title="Image Prediction App", page_icon=":guardsman:", layout="wide")
 
 # Load the model from GCS
-master_model = load_model("gs://auto_tag_old_models/model_master_vgg16")
-
+def predict_image(image):
+    # Add code to send the image to the API and receive a prediction
+    api_url = 'http://127.0.0.1:8002/pred/'
+    response = requests.post(api_url, files={'file': image})
+    return response
 
 def main():
     st.title("Upload an image for prediction")
@@ -20,9 +23,8 @@ def main():
     if image_file is not None:
         categorias = {}
         for img in image_file:
-            image_pil = Image.open(img) # esto es para trabajar con objetos pillow
             image_name = img.name # esto se encuentra en el objeto de uploded file
-            image_category = master_model.predict(image_pil) #usamos la imagen en pillow para la prediccion
+            image_category = predict_image(img).json()
             categorias[image_name] = image_category #añadimos una entrada en el diccionario
 
     excel = pd.DataFrame(categorias)
