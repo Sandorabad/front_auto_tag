@@ -28,7 +28,7 @@ def main():
         lista_vacia = []
         flag = False
         button_status = False
-        if st.button("Click after uploading images"):
+        if st.button("Get Tags"):
             button_status = True
 
         if button_status is True:
