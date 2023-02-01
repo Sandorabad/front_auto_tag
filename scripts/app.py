@@ -18,7 +18,7 @@ def predict_with_cloud_function(image):
     image_binary = image.tobytes()
 
     # Send a POST request to the Google Cloud Function
-    response = requests.post('https://<REGION>-<PROJECT_ID>.cloudfunctions.net/predict', data=image_binary)
+    response = requests.post('https://us-central1-sandor-api-le-wagon.cloudfunctions.net/function-2', data=image_binary)
 
     # Return the prediction from the response
     return response
