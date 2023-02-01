@@ -13,11 +13,16 @@ st.set_page_config(page_title="Retail Auto Tagging", page_icon=":guardsman:", la
 logo_path = "scripts/Logotipo de Internet Blanco con Triángulos de Colores.png"
 st.image(logo_path, width=200)
 
-def predict_image(image):
-    # Add code to send the image to the API and receive a prediction
-    api_url = 'https://us-central1-sandor-api-le-wagon.cloudfunctions.net/function-2'
-    response = requests.post(api_url, files={'file': image})
+def predict_with_cloud_function(image):
+    # Encode the image file as a binary string
+    image_binary = image.tobytes()
+
+    # Send a POST request to the Google Cloud Function
+    response = requests.post('https://<REGION>-<PROJECT_ID>.cloudfunctions.net/predict', data=image_binary)
+
+    # Return the prediction from the response
     return response
+
 
 def main():
     st.title("Upload a set of images for prediction")
@@ -37,8 +42,7 @@ def main():
 
                     result = {}
                     result["Image Id"] = img.name
-                    result.update(predict_image(img).json())
-
+                    result.update(predict_with_cloud_function(img).json())
                     st.success(f"Processing Image : {img.name}" , icon = "⌛")
                     lista_vacia.append(result)
                     flag = True
