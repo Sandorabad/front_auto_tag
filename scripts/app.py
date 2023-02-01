@@ -15,7 +15,7 @@ st.image(logo_path, width=200)
 
 def predict_image(image):
     # Add code to send the image to the API and receive a prediction
-    api_url = 'http://127.0.0.1:8002/pred/'
+    api_url = 'https://us-central1-sandor-api-le-wagon.cloudfunctions.net/function-2'
     response = requests.post(api_url, files={'file': image})
     return response
 
