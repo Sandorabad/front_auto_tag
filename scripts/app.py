@@ -59,7 +59,7 @@ def main():
                 st.success("All Images Processed, Ready for Download", icon = "🔥" )
 
             excel = pd.DataFrame(lista_vacia)
-            excel.rename(columns = {"Image Id":"Image Id", "master":"Master Category", "sub":"Sub Category"})
+            excel.rename(columns = {"Image Id":"Image Id", "master":"Master Category", "sub":"Sub Category"}, inplace  = True)
 
             st.download_button("Download Excel File", data=download_excel(excel), file_name="clasificacion.xlsx")
 
