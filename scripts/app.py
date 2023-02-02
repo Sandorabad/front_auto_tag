@@ -4,6 +4,8 @@ from PIL import Image
 import pandas as pd
 import io
 import warnings
+from openpyxl import Workbook
+from openpyxl.utils.dataframe import dataframe_to_rows
 warnings.filterwarnings('ignore')
 
 
@@ -47,17 +49,25 @@ def main():
 
             excel = pd.DataFrame(lista_vacia)
 
+            # Create a Workbook object
+            wb = Workbook()
 
-            #buffer = io.BytesIO()
-            #with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-            #    excel.to_excel(writer, sheet_name='Sheet1', index = False)
-            #    writer.save()
+            # Select the active sheet
+            ws = wb.active
+
+            # Write the DataFrame to the sheet
+            for r in dataframe_to_rows(excel, index=False, header=True):
+                ws.append(r)
+
+            # Save the workbook to an Excel file
+            wb.save("sample.xlsx")
+
 
             if excel.empty is False:
 
                 st.download_button(
                 label="Download Excel",
-                data=excel,
+                data=wb,
                 file_name="clasificacion.xlsx",
                 mime="application/vnd.ms-excel"
                 )
