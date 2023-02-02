@@ -5,7 +5,6 @@ import pandas as pd
 import io
 import warnings
 warnings.filterwarnings('ignore')
-import xlsxwriter
 
 st.set_page_config(page_title="Retail Auto Tagging", page_icon=":guardsman:", layout="wide")
 
