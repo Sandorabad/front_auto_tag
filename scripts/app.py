@@ -9,12 +9,13 @@ warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title="Retail Auto Tagging", page_icon=":guardsman:", layout="wide")
 
-logo_path = "scripts/Logotipo de Internet Blanco con Triángulos de Colores.png"
+logo_path = "/home/sandorabad/code/Sandorabad/front_auto_tag/scripts/Logotipo de Internet Blanco con Triángulos de Colores.png"
+#"scripts/Logotipo de Internet Blanco con Triángulos de Colores.png"
 st.image(logo_path, width=200)
 
 def predict_image(image):
     # Add code to send the image to the API and receive a prediction
-    api_url = 'https://autotagging2-osgbhqumjq-as.a.run.app/pred//'
+    api_url = 'https://autotagging2-osgbhqumjq-as.a.run.app/pred/'
     response = requests.post(api_url, files={'file': image})
     return response
 
@@ -26,9 +27,6 @@ def download_excel(df):
     df.to_excel(bio, index=False)
     # Set the stream position to the beginning
     bio.seek(0)
-    # Add headers to trigger a download
-    st.response.set_header("Content-Disposition", "attachment; filename=data.xlsx")
-    st.response.set_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     # Return the stream
     return bio.read()
 
@@ -61,14 +59,11 @@ def main():
                 st.success("All Images Processed, Ready for Download", icon = "🔥" )
 
             excel = pd.DataFrame(lista_vacia)
+            print("AAAAAAAAAAAAAAA")
+            print(excel)
 
-            if st.download_button("Download Excel File"):
-                st.markdown("""
-                ```
-                <a href="%s" download>Download Excel File</a>
-                ```
-                """ % "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64," +
-                    str(download_excel(excel).encode("base64"))[2:-1], unsafe_allow_html=True)
+
+            st.download_button("Download Excel File", data=download_excel(excel), file_name="clasificacion.xlsx")
 
 
 
