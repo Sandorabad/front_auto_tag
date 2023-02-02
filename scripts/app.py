@@ -48,7 +48,7 @@ def main():
             excel = pd.DataFrame(lista_vacia)
 
             buffer = io.BytesIO()
-            with pd.ExcelWriter(buffer, engine='xlwt') as writer:
+            with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
                 excel.to_excel(writer, sheet_name='Sheet1', index = False)
                 writer.save()
 
