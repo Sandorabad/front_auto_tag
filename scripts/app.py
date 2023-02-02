@@ -1,11 +1,10 @@
 import streamlit as st
+from streamlit import response
 import requests
 from PIL import Image
 import pandas as pd
 import io
 import warnings
-from openpyxl import Workbook
-from openpyxl.utils.dataframe import dataframe_to_rows
 warnings.filterwarnings('ignore')
 
 
@@ -19,6 +18,21 @@ def predict_image(image):
     api_url = 'https://autotagging2-osgbhqumjq-as.a.run.app/pred//'
     response = requests.post(api_url, files={'file': image})
     return response
+
+
+def download_excel(df):
+    # Create a binary stream for the Excel file
+    bio = io.BytesIO()
+    # Write the DataFrame to the stream
+    df.to_excel(bio, index=False)
+    # Set the stream position to the beginning
+    bio.seek(0)
+    # Add headers to trigger a download
+    response.set_header("Content-Disposition", "attachment; filename=data.xlsx")
+    response.set_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    # Return the stream
+    return bio.read()
+
 
 def main():
     st.title("Upload a set of images for prediction")
@@ -49,28 +63,14 @@ def main():
 
             excel = pd.DataFrame(lista_vacia)
 
-            # Create a Workbook object
-            wb = Workbook()
+            if st.download_button("Download Excel File"):
+                st.markdown("""
+                ```
+                <a href="%s" download>Download Excel File</a>
+                ```
+                """ % "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64," +
+                    str(download_excel(excel).encode("base64"))[2:-1], unsafe_allow_html=True)
 
-            # Select the active sheet
-            ws = wb.active
-
-            # Write the DataFrame to the sheet
-            for r in dataframe_to_rows(excel, index=False, header=True):
-                ws.append(r)
-
-            # Save the workbook to an Excel file
-            wb.save("sample.xlsx")
-
-
-            if excel.empty is False:
-
-                st.download_button(
-                label="Download Excel",
-                data=wb,
-                file_name="clasificacion.xlsx",
-                mime="application/vnd.ms-excel"
-                )
 
 
 if __name__ == '__main__':
