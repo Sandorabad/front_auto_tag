@@ -1,4 +1,4 @@
-from streamlit import response
+import streamlit as st
 import requests
 from PIL import Image
 import pandas as pd
@@ -27,8 +27,8 @@ def download_excel(df):
     # Set the stream position to the beginning
     bio.seek(0)
     # Add headers to trigger a download
-    response.set_header("Content-Disposition", "attachment; filename=data.xlsx")
-    response.set_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    st.response.set_header("Content-Disposition", "attachment; filename=data.xlsx")
+    st.response.set_header("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     # Return the stream
     return bio.read()
 
