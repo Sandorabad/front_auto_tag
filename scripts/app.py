@@ -9,8 +9,8 @@ warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title="Retail Auto Tagging", page_icon=":guardsman:", layout="wide")
 
-logo_path = "/home/sandorabad/code/Sandorabad/front_auto_tag/scripts/Logotipo de Internet Blanco con Triángulos de Colores.png"
-#"scripts/Logotipo de Internet Blanco con Triángulos de Colores.png"
+logo_path = "scripts/Logotipo de Internet Blanco con Triángulos de Colores.png"
+
 st.image(logo_path, width=200)
 
 def predict_image(image):
@@ -59,11 +59,10 @@ def main():
                 st.success("All Images Processed, Ready for Download", icon = "🔥" )
 
             excel = pd.DataFrame(lista_vacia)
-            print("AAAAAAAAAAAAAAA")
-            print(excel)
-
+            excel.rename(columns = {"Image Id":"Image Id", "master":"Master Category", "sub":"Sub Category"})
 
             st.download_button("Download Excel File", data=download_excel(excel), file_name="clasificacion.xlsx")
+
 
 
 
