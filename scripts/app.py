@@ -1,4 +1,3 @@
-import streamlit as st
 from streamlit import response
 import requests
 from PIL import Image
