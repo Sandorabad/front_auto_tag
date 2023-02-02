@@ -3,7 +3,6 @@ import requests
 from PIL import Image
 import pandas as pd
 import io
-from openpyxl.workbook import Workbook
 import warnings
 warnings.filterwarnings('ignore')
 
