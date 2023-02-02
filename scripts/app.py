@@ -4,7 +4,6 @@ from PIL import Image
 import pandas as pd
 import io
 import warnings
-import xlsxwriter
 warnings.filterwarnings('ignore')
 
 
@@ -49,7 +48,7 @@ def main():
             excel = pd.DataFrame(lista_vacia)
 
             buffer = io.BytesIO()
-            with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+            with pd.ExcelWriter(buffer, engine='xlwt') as writer:
                 excel.to_excel(writer, sheet_name='Sheet1', index = False)
                 writer.save()
 
