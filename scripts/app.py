@@ -47,16 +47,17 @@ def main():
 
             excel = pd.DataFrame(lista_vacia)
 
-            buffer = io.BytesIO()
-            with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-                excel.to_excel(writer, sheet_name='Sheet1', index = False)
-                writer.save()
+
+            #buffer = io.BytesIO()
+            #with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+            #    excel.to_excel(writer, sheet_name='Sheet1', index = False)
+            #    writer.save()
 
             if excel.empty is False:
 
                 st.download_button(
                 label="Download Excel",
-                data=buffer,
+                data=excel,
                 file_name="clasificacion.xlsx",
                 mime="application/vnd.ms-excel"
                 )
